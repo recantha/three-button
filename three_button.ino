@@ -45,8 +45,11 @@ void setup() {
 
   pinMode(BUZZER_PIN, OUTPUT);
 
-  for(int i=0; i<3; i++)
+  for(int i=0; i<3; i++) {
     pinMode(buttonPins[i], INPUT);
+    /* activate pull-up resistor */
+    digitalWrite(buttonPins[i], HIGH);
+  }
 }
 
 void reset() {
