@@ -38,12 +38,8 @@ byte buttonPins[3] = {
   BUTTON_red, BUTTON_yellow, BUTTON_green
 };
 
-int button_read = 0;
-
 // Setup the Arduino interfaces
 void setup() {
-  Serial.begin(9600);
-
   // Set the LED pins to output, and turn them all off
   for (int i = 0; i < 3; i++) {
     pinMode(ledPins[i], OUTPUT);
@@ -90,7 +86,6 @@ void success() {
 
 void reset() {
   // Set relative clock to 0
-  //  Serial.print("Reset");
   // Turn on all button and backup LEDs.
   for (int i = 0; i < 3; i++) {
     digitalWrite(ledPins[i], LOW);
@@ -109,10 +104,6 @@ void reset() {
 
 void loop() {
   // 0 for a button is 'pressed'
-  //  Serial.print(digitalRead(BUTTON_red));
-  //  Serial.print(digitalRead(BUTTON_yellow));
-  //  Serial.print(digitalRead(BUTTON_green));
-  //  Serial.print("\n");
   if ((digitalRead(BUTTON_red) == 0) || (red_button_state == 1)) {
     if (red_button_state == 0) {
       digitalWrite(LED_PIN_red_button, HIGH);
