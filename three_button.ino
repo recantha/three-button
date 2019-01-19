@@ -8,7 +8,6 @@ unsigned long start_time = 0;
 // Maintain state of buttons. (1 is 'has been pressed')
 byte red_button_state = 0;
 byte yellow_button_state = 0;
-byte green_button_state = 0;
 
 // relays (HIGH is OFF)
 byte LED_PIN_red_button = 2;
@@ -26,9 +25,6 @@ byte LED_PIN_green_backup = 13;
 byte ledPins[3] = {
   LED_PIN_red_backup, LED_PIN_yellow_backup, LED_PIN_green_backup
 };
-
-// Buzzer
-byte BUZZER_PIN = 3;
 
 // Button inputs
 byte BUTTON_red = 4;
@@ -52,7 +48,6 @@ void setup() {
     digitalWrite(relayPins[i], LOW);
   }
 
-  pinMode(BUZZER_PIN, OUTPUT);
 
   // Set the Button pins to input
   for (int i = 0; i < 3; i++) {
@@ -96,10 +91,8 @@ void reset() {
 
   red_button_state = 0;
   yellow_button_state = 0;
-  green_button_state = 0;
 
   start_time = 0;
-  digitalWrite(BUZZER_PIN, LOW);
 }
 
 void loop() {
@@ -119,16 +112,15 @@ void loop() {
         yellow_button_state = 1;
       }
 
-      if ((digitalRead(BUTTON_green) == 0) || (green_button_state == 1)) {
-        if (green_button_state == 0) {
-          digitalWrite(LED_PIN_green_button, HIGH);
-          digitalWrite(LED_PIN_green_backup, HIGH);
-          green_button_state = 1;
+      if (digitalRead(BUTTON_green) == 0) {
+        digitalWrite(LED_PIN_green_button, HIGH);
+        digitalWrite(LED_PIN_green_backup, HIGH);
 
-          // Success!
-          success();
-          reset();
-        }
+        delay(1000);
+
+        // Success!
+        success();
+        reset();
       }
     }
   }
